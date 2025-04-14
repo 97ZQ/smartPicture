@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.picture.picturebackened.manager.upload.PictureUploadByBatchRequest;
+import com.picture.picturebackened.model.dto.picture.PictureEditRequest;
 import com.picture.picturebackened.model.dto.picture.PictureQueryRequest;
 import com.picture.picturebackened.model.dto.picture.PictureReviewRequest;
 import com.picture.picturebackened.model.dto.picture.PictureUploadRequest;
@@ -20,7 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 * @createDate 2025-03-24 00:34:11
 */
 public interface PictureService extends IService<Picture> {
-
+    /**
+     * 校验图片
+     * @param picture
+     */
     void validPicture(Picture picture);
 
     /**
@@ -34,8 +38,20 @@ public interface PictureService extends IService<Picture> {
                             PictureUploadRequest pictureUploadRequest,
                             User loginUser);
 
+    /**
+     * 获取图片视图方法
+     * @param picture
+     * @param request
+     * @return
+     */
     PictureVO getPictureVO(Picture picture, HttpServletRequest request);
 
+    /**
+     * 获取图片视图分页方法
+     * @param picturePage
+     * @param request
+     * @return
+     */
     Page<PictureVO> getPictureVOPage(Page<Picture> picturePage, HttpServletRequest request);
 
     /**
@@ -74,4 +90,25 @@ public interface PictureService extends IService<Picture> {
      * @param oldPicture
      */
     void clearPictureFile(Picture oldPicture);
+
+    /**
+     * 校验空间图片的权限
+     * @param loginUser
+     * @param picture
+     */
+    void checkPictureAuth(User loginUser, Picture picture);
+
+    /**
+     * 删除图片
+     * @param pictureId
+     * @param loginUser
+     */
+    void deletePicture(long pictureId, User loginUser);
+
+    /**
+     * 编辑图片（给用户使用）
+     * @param pictureEditRequest
+     * @param loginUser
+     */
+    void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
 }
