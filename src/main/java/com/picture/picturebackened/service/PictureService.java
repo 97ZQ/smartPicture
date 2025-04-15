@@ -4,16 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.picture.picturebackened.manager.upload.PictureUploadByBatchRequest;
-import com.picture.picturebackened.model.dto.picture.PictureEditRequest;
-import com.picture.picturebackened.model.dto.picture.PictureQueryRequest;
-import com.picture.picturebackened.model.dto.picture.PictureReviewRequest;
-import com.picture.picturebackened.model.dto.picture.PictureUploadRequest;
+import com.picture.picturebackened.model.dto.picture.*;
 import com.picture.picturebackened.model.entity.Picture;
 import com.picture.picturebackened.model.entity.User;
 import com.picture.picturebackened.model.vo.PictureVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
 * @author DELL
@@ -111,4 +109,20 @@ public interface PictureService extends IService<Picture> {
      * @param loginUser
      */
     void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
+
+    /**
+     * 根据颜色搜索图片
+     * @param spaceId
+     * @param picColor
+     * @param loginUser
+     * @return
+     */
+    List<PictureVO> searchPictureByColor(Long spaceId, String picColor, User loginUser);
+
+    /**
+     * 批量编辑图片
+     * @param pictureEditByBatchRequest
+     * @param loginUser
+     */
+    void editPictureByBatch(PictureEditByBatchRequest pictureEditByBatchRequest,User loginUser);
 }
